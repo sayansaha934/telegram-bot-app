@@ -6,18 +6,17 @@ const cors = require('cors');
 
 dotenv.config();
 
-const apiId = process.env.TELEGRAM_API_ID; // Get from https://my.telegram.org/apps
-const apiHash = process.env.TELEGRAM_API_HASH; // Get from https://my.telegram.org/apps
-let botToken = process.env.BOT_TOKEN || ""; // Set via API or .env
+const apiId = process.env.TELEGRAM_API_ID;
+const apiHash = process.env.TELEGRAM_API_HASH;
 
 const app = express();
-app.use(cors()); 
+app.use(cors());
 app.use(express.json());
 
 let client;
 
 // Function to initialize the bot
-async function startBot() {
+async function startBot(botToken) {
   console.log("bottoekn", botToken);
   client = new TelegramClient(new StringSession(""), apiId, apiHash, {
     connectionRetries: 5,
@@ -49,7 +48,7 @@ app.post("/api/set-token", async (req, res) => {
   if (client) {
     await client.disconnect();
   }
-  startBot();
+  startBot(botToken);
   res.json({ success: true });
 });
 
