@@ -37,7 +37,7 @@ async function startBot() {
       const user = await client.getEntity(newUser);
       console.log("New User", user);
       await client.sendMessage(message.chatId, {
-        message: `Hi ${user.firstName || "@" + user.username || "New User"}, Welcome to Test app! Hope you are wll`,
+        message: `Hi ${user.firstName || "@" + user.username || "New User"}, Welcome to BitClub!`,
       });
     }
   });
